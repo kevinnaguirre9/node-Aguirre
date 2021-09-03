@@ -1,4 +1,5 @@
 import { ROLES } from "../models/Role";
+import User from "../models/User";
 
 export const checkRolesExisted = (req, res, next) => {
      if (req.body.roles) {
@@ -12,4 +13,22 @@ export const checkRolesExisted = (req, res, next) => {
      }
    
      next();
+}
+
+export const checkDuplicateUsernameOrEmail = async (req, res, next) => {
+     try {
+          const {username, email} = req.body;
+
+          const user = await User.findOne({ username: username });
+          
+          if (user) return res.status(400).json({ message: "The user already exists" });
+          
+          const emailFound = await User.findOne({ email: email });
+          
+          if (emailFound) return res.status(400).json({ message: "The email already exists" });
+
+          next();
+     } catch (error) {
+          res.status(500).json({ message: error });
+     }
 }
