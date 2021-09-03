@@ -1,6 +1,12 @@
-import express from 'express'
+import app from './app'
+import morgan from 'morgan'
 
-const app = express()
+app.listen(3000)
 
-app.listen(4000)
-console.log('Server listening on port', 4000)
+app.use(morgan('combined'))
+
+app.get('/', (req, res) => {
+     res.json('Welcome')
+})
+
+console.log('Server listening on port', 3000)
