@@ -8,6 +8,7 @@ import productsRoutes from './routes/products.routes'
 
 app.set('pkg', pkg)
 
+app.use(express.json())
 app.use(morgan('dev'))
 
 app.get('/', (req, res) => {
