@@ -7,7 +7,7 @@ const router = Router()
 router.post('/', [authJwt.verifyToken, authJwt.isModerator], productCtrl.createProduct)
 router.get('/', productCtrl.getProducts)
 router.get('/:productId', productCtrl.getProductById)
-router.put('/:productId', [authJwt.verifyToken], productCtrl.updateProductById)
-router.delete('/:productId', [authJwt.verifyToken], productCtrl.deleteProduct)
+router.put('/:productId', [authJwt.verifyToken, authJwt.isAdmin], productCtrl.updateProductById)
+router.delete('/:productId', [authJwt.verifyToken, authJwt.isAdmin], productCtrl.deleteProduct)
 
 export default router;
